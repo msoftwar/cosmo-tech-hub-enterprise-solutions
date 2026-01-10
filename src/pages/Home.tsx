@@ -4,19 +4,20 @@ import { Button } from "@/components/ui/button";
 import { Section, SectionHeader } from "@/components/ui/Section";
 import { ServiceCard } from "@/components/cards/ServiceCard";
 import { ProcessStep } from "@/components/cards/ProcessStep";
-import { StatCard } from "@/components/cards/StatCard";
 import {
   Globe,
   Smartphone,
   Bot,
   Code2,
   ArrowRight,
-  CheckCircle2,
   Zap,
   Shield,
   Users,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
-import heroBg from "@/assets/hero-bg.jpg";
+import { AIBackground } from "@/components/ui/AIBackground";
+import { useRef } from "react";
 
 const services = [
   {
@@ -24,7 +25,7 @@ const services = [
     title: "Web Development",
     description:
       "Enterprise web applications, SaaS platforms, and admin dashboards built with modern frameworks.",
-    features: ["React & Next.js", "API Integrations", "Cloud-Native"],
+    features: ["Angular & React", "API Integrations", "Cloud-Native"],
   },
   {
     icon: Smartphone,
@@ -82,96 +83,133 @@ const processSteps = [
   },
 ];
 
-const stats = [
-  { value: "150+", label: "Projects Delivered" },
-  { value: "50+", label: "Enterprise Clients" },
-  { value: "98%", label: "Client Satisfaction" },
-  { value: "24/7", label: "Support Available" },
-];
-
 const techLogos = [
   { name: "React", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
   { name: "Angular", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg" },
+  { name: "Vue", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg" },
+  { name: "Next.js", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
   { name: "Node.js", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
-  { name: ".NET", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg" },
+  { name: "ASP.NET Core", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg" },
+  { name: "TypeScript", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
+  { name: "Python", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+  { name: "C#", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" },
+  { name: "HTML5", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
+  { name: "CSS3", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" },
+  { name: "Tailwind CSS", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" },
+  { name: "Bootstrap", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" },
+  { name: "SQL Server", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg" },
   { name: "PostgreSQL", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
+  { name: "MongoDB", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
   { name: "AWS", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" },
+  { name: "Azure", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" },
+  { name: "Android", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/android/android-original.svg" },
+  { name: "Flutter", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" },
 ];
 
 export default function Home() {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  const scrollTech = (direction: "left" | "right") => {
+    if (scrollContainerRef.current) {
+      const scrollAmount = 200;
+      scrollContainerRef.current.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center overflow-hidden">
-        {/* Background */}
-        <div className="absolute inset-0">
-          <img
-            src={heroBg}
-            alt=""
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-surface-dark via-surface-dark/95 to-surface-dark/80" />
-        </div>
+      <section className="relative min-h-screen flex items-center overflow-hidden bg-surface-dark">
+        {/* AI Background */}
+        <AIBackground />
+        
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-surface-dark/50 via-transparent to-surface-dark z-[1]" />
 
         {/* Content */}
         <div className="container-wide relative z-10 pt-20">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 text-sm text-white/80 mb-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 text-xs sm:text-sm text-white/80 mb-6 md:mb-8">
               <Zap className="h-4 w-4 text-accent" />
               Enterprise Software Development
             </div>
 
-            <h1 className="text-display text-white">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-display font-heading font-bold text-white leading-tight">
               Building Scalable Digital Solutions for the{" "}
               <span className="gradient-brand-text">Modern World</span>
             </h1>
 
-            <p className="mt-6 text-xl text-white/70 leading-relaxed max-w-2xl">
+            <p className="mt-4 md:mt-6 text-base sm:text-lg md:text-xl text-white/70 leading-relaxed max-w-2xl">
               From web applications to AI-powered systems, we deliver
               enterprise-grade technology that drives performance, scalability,
               and business growth.
             </p>
 
-            <div className="mt-10 flex flex-wrap gap-4">
-              <Button variant="gradient" size="xl" asChild>
+            <div className="mt-8 md:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4">
+              <Button variant="gradient" size="lg" asChild className="w-full sm:w-auto">
                 <Link to="/contact">
                   Get a Quote
                   <ArrowRight className="h-5 w-5" />
                 </Link>
               </Button>
-              <Button variant="outline-light" size="xl" asChild>
-                <Link to="/contact">Schedule a Call</Link>
+              <Button variant="outline-light" size="lg" asChild className="w-full sm:w-auto">
+                <a href="tel:+971569949346">Schedule a Call</a>
               </Button>
             </div>
 
-            {/* Trust Indicators */}
-            <div className="mt-16 pt-8 border-t border-white/10">
-              <p className="text-sm text-white/50 mb-6 uppercase tracking-wider">
-                Technologies We Master
-              </p>
-              <div className="flex flex-wrap items-center gap-8">
+            {/* Technologies Scrollable */}
+            <div className="mt-12 md:mt-16 pt-6 md:pt-8 border-t border-white/10">
+              <div className="flex items-center justify-between mb-4 md:mb-6">
+                <p className="text-xs sm:text-sm text-white/50 uppercase tracking-wider">
+                  Technologies We Master
+                </p>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => scrollTech("left")}
+                    className="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
+                    aria-label="Scroll left"
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                  </button>
+                  <button
+                    onClick={() => scrollTech("right")}
+                    className="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
+                    aria-label="Scroll right"
+                  >
+                    <ChevronRight className="h-4 w-4" />
+                  </button>
+                </div>
+              </div>
+              <div
+                ref={scrollContainerRef}
+                className="flex items-center gap-4 md:gap-6 overflow-x-auto scrollbar-hide pb-4"
+                style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+              >
                 {techLogos.map((tech) => (
-                  <img
+                  <div
                     key={tech.name}
-                    src={tech.url}
-                    alt={tech.name}
-                    className="h-10 w-auto opacity-60 hover:opacity-100 transition-opacity"
-                  />
+                    className="flex flex-col items-center gap-2 shrink-0"
+                  >
+                    <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-white/10 backdrop-blur-sm p-2.5 flex items-center justify-center hover:bg-white/20 transition-colors">
+                      <img
+                        src={tech.url}
+                        alt={tech.name}
+                        className="h-full w-auto"
+                      />
+                    </div>
+                    <span className="text-[10px] md:text-xs text-white/60 whitespace-nowrap">
+                      {tech.name}
+                    </span>
+                  </div>
                 ))}
               </div>
             </div>
           </div>
         </div>
       </section>
-
-      {/* Stats Section */}
-      <Section className="border-b border-border">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          {stats.map((stat, index) => (
-            <StatCard key={index} value={stat.value} label={stat.label} />
-          ))}
-        </div>
-      </Section>
 
       {/* Services Section */}
       <Section id="services">
@@ -181,7 +219,7 @@ export default function Home() {
           description="We provide comprehensive software development services tailored to your business needs."
         />
 
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="mt-10 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           {services.map((service, index) => (
             <ServiceCard
               key={index}
@@ -193,7 +231,7 @@ export default function Home() {
           ))}
         </div>
 
-        <div className="mt-12 text-center">
+        <div className="mt-10 md:mt-12 text-center">
           <Button variant="outline" size="lg" asChild>
             <Link to="/services">
               View All Services
@@ -205,7 +243,7 @@ export default function Home() {
 
       {/* Why Choose Us */}
       <Section dark>
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div>
             <SectionHeader
               eyebrow="Why Cosmo Tech Hub"
@@ -214,7 +252,7 @@ export default function Home() {
               centered={false}
             />
 
-            <div className="mt-10 space-y-6">
+            <div className="mt-8 md:mt-10 space-y-5 md:space-y-6">
               {[
                 {
                   icon: Shield,
@@ -236,14 +274,14 @@ export default function Home() {
                 },
               ].map((item, index) => (
                 <div key={index} className="flex gap-4">
-                  <div className="shrink-0 w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center">
-                    <item.icon className="h-6 w-6 text-accent" />
+                  <div className="shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-lg bg-accent/10 flex items-center justify-center">
+                    <item.icon className="h-5 w-5 md:h-6 md:w-6 text-accent" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-surface-dark-foreground mb-1">
+                    <h4 className="font-semibold text-sm md:text-base text-surface-dark-foreground mb-1">
                       {item.title}
                     </h4>
-                    <p className="text-surface-dark-foreground/70">
+                    <p className="text-sm md:text-base text-surface-dark-foreground/70">
                       {item.description}
                     </p>
                   </div>
@@ -253,12 +291,12 @@ export default function Home() {
           </div>
 
           <div className="relative">
-            <div className="aspect-square rounded-2xl grid-pattern-dark border border-white/10 p-8 flex items-center justify-center">
+            <div className="aspect-square rounded-2xl grid-pattern-dark border border-white/10 p-6 md:p-8 flex items-center justify-center">
               <div className="text-center">
-                <div className="text-6xl lg:text-7xl font-heading font-bold gradient-brand-text mb-4">
+                <div className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold gradient-brand-text mb-3 md:mb-4">
                   10+
                 </div>
-                <p className="text-xl text-surface-dark-foreground/70">
+                <p className="text-lg md:text-xl text-surface-dark-foreground/70">
                   Years of Experience
                 </p>
               </div>
@@ -275,7 +313,7 @@ export default function Home() {
           description="A proven methodology that ensures quality, transparency, and on-time delivery."
         />
 
-        <div className="mt-16 max-w-2xl mx-auto">
+        <div className="mt-10 md:mt-16 max-w-2xl mx-auto">
           {processSteps.map((step, index) => (
             <ProcessStep
               key={index}
@@ -291,25 +329,25 @@ export default function Home() {
       {/* CTA Section */}
       <Section dark className="relative overflow-hidden">
         <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-gradient-radial from-accent/30 to-transparent" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] md:w-[800px] h-[600px] md:h-[800px] rounded-full bg-gradient-radial from-accent/30 to-transparent" />
         </div>
 
-        <div className="relative text-center max-w-3xl mx-auto">
-          <h2 className="text-headline text-surface-dark-foreground">
+        <div className="relative text-center max-w-3xl mx-auto px-4">
+          <h2 className="text-2xl sm:text-3xl md:text-headline font-heading font-bold text-surface-dark-foreground">
             Ready to Build Something Powerful?
           </h2>
-          <p className="mt-6 text-xl text-surface-dark-foreground/70">
+          <p className="mt-4 md:mt-6 text-base md:text-xl text-surface-dark-foreground/70">
             Let's discuss your project requirements and explore how we can help
             you achieve your goals.
           </p>
-          <div className="mt-10 flex flex-wrap justify-center gap-4">
-            <Button variant="gradient" size="xl" asChild>
+          <div className="mt-8 md:mt-10 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
+            <Button variant="gradient" size="lg" asChild className="w-full sm:w-auto">
               <Link to="/contact">
                 Start Your Project
                 <ArrowRight className="h-5 w-5" />
               </Link>
             </Button>
-            <Button variant="outline-light" size="xl" asChild>
+            <Button variant="outline-light" size="lg" asChild className="w-full sm:w-auto">
               <Link to="/technologies">Explore Technologies</Link>
             </Button>
           </div>

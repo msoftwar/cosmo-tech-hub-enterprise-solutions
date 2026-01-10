@@ -23,14 +23,14 @@ const services = [
     description:
       "We build robust, scalable web applications using modern frameworks and best practices. From complex SaaS platforms to enterprise admin dashboards, our solutions are designed for performance and maintainability.",
     features: [
-      "Single Page Applications (React, Angular, Vue)",
+      "Single Page Applications (Angular, React, Vue)",
       "Progressive Web Apps (PWA)",
       "Enterprise SaaS Platforms",
       "Admin Dashboards & Portals",
       "E-commerce Solutions",
       "API Development & Integration",
     ],
-    technologies: ["React", "Next.js", "Angular", "Node.js", ".NET", "PostgreSQL"],
+    technologies: ["Angular", "React", "Vue", "Node.js", ".NET", "PostgreSQL"],
   },
   {
     id: "mobile",
