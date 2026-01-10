@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Linkedin, Twitter, Github } from "lucide-react";
-import logoFull from "@/assets/logo-full.png";
+import logoIcon from "@/assets/logo-icon.png";
 
 const footerLinks = {
   company: [
@@ -20,21 +20,39 @@ const footerLinks = {
   ],
 };
 
+const offices = [
+  {
+    name: "Head Office - Dubai",
+    address: "District 12, Jumeirah Village Circle, Dubai, United Arab Emirates",
+    phone: "+971 56 994 9346",
+  },
+  {
+    name: "UK Office",
+    address: "19 Farrow Avenue, Hampton Vale, PE7 8HT, England, UK",
+    phone: "+44 7519 302088",
+  },
+  {
+    name: "Pakistan Office",
+    address: "Abbasi Business Center, Rawalpindi",
+    phone: "+92 313 770 7190",
+  },
+];
+
 export function Footer() {
   return (
     <footer className="section-dark">
-      <div className="container-wide py-16 lg:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8">
+      <div className="container-wide py-12 lg:py-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
           {/* Brand Column */}
-          <div className="lg:col-span-2">
+          <div className="md:col-span-2 lg:col-span-1">
             <Link to="/" className="inline-block">
               <img
-                src={logoFull}
+                src={logoIcon}
                 alt="Cosmo Tech Hub"
-                className="h-12 w-auto brightness-0 invert"
+                className="h-12 w-auto"
               />
             </Link>
-            <p className="mt-6 text-surface-dark-foreground/70 max-w-sm leading-relaxed">
+            <p className="mt-6 text-sm text-surface-dark-foreground/70 max-w-sm leading-relaxed">
               Building scalable digital solutions for businesses worldwide.
               From web applications to AI-powered systems, we deliver
               enterprise-grade technology.
@@ -74,7 +92,7 @@ export function Footer() {
                 <li key={link.name}>
                   <Link
                     to={link.href}
-                    className="text-surface-dark-foreground/70 hover:text-white transition-colors"
+                    className="text-sm text-surface-dark-foreground/70 hover:text-white transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -92,7 +110,7 @@ export function Footer() {
                 <li key={link.name}>
                   <Link
                     to={link.href}
-                    className="text-surface-dark-foreground/70 hover:text-white transition-colors"
+                    className="text-sm text-surface-dark-foreground/70 hover:text-white transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -105,30 +123,56 @@ export function Footer() {
             <h4 className="font-heading font-semibold text-sm uppercase tracking-wider mb-4">
               Contact
             </h4>
-            <ul className="space-y-3">
-              <li className="flex items-center gap-3 text-surface-dark-foreground/70">
+            <ul className="space-y-4">
+              <li className="flex items-center gap-3 text-sm text-surface-dark-foreground/70">
                 <Mail className="h-4 w-4 shrink-0" />
                 <span>contact@cosmotechhub.com</span>
               </li>
-              <li className="flex items-center gap-3 text-surface-dark-foreground/70">
+              <li className="flex items-center gap-3 text-sm text-surface-dark-foreground/70">
                 <Phone className="h-4 w-4 shrink-0" />
-                <span>+1 (555) 123-4567</span>
-              </li>
-              <li className="flex items-start gap-3 text-surface-dark-foreground/70">
-                <MapPin className="h-4 w-4 shrink-0 mt-1" />
-                <span>San Francisco, CA</span>
+                <a href="tel:+971569949346" className="hover:text-white transition-colors">
+                  +971 56 994 9346
+                </a>
               </li>
             </ul>
           </div>
         </div>
 
+        {/* Offices */}
+        <div className="mt-12 pt-8 border-t border-white/10">
+          <h4 className="font-heading font-semibold text-sm uppercase tracking-wider mb-6">
+            Our Offices
+          </h4>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {offices.map((office) => (
+              <div key={office.name} className="flex items-start gap-3">
+                <MapPin className="h-4 w-4 shrink-0 mt-1 text-accent" />
+                <div>
+                  <p className="text-sm font-medium text-surface-dark-foreground mb-1">
+                    {office.name}
+                  </p>
+                  <p className="text-xs text-surface-dark-foreground/60 leading-relaxed">
+                    {office.address}
+                  </p>
+                  <a
+                    href={`tel:${office.phone.replace(/\s/g, "")}`}
+                    className="text-xs text-surface-dark-foreground/60 hover:text-white transition-colors"
+                  >
+                    {office.phone}
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* Bottom Bar */}
-        <div className="mt-16 pt-8 border-t border-white/10">
+        <div className="mt-12 pt-8 border-t border-white/10">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-surface-dark-foreground/60">
+            <p className="text-xs text-surface-dark-foreground/60">
               © {new Date().getFullYear()} Cosmo Tech Hub. All rights reserved.
             </p>
-            <div className="flex gap-6 text-sm text-surface-dark-foreground/60">
+            <div className="flex gap-6 text-xs text-surface-dark-foreground/60">
               <a href="#" className="hover:text-white transition-colors">
                 Privacy Policy
               </a>

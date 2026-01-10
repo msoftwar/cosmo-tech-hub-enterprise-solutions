@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
-import logoFull from "@/assets/logo-full.png";
+import { Menu, X, Phone } from "lucide-react";
 import logoIcon from "@/assets/logo-icon.png";
+import logoBlack from "@/assets/logo-black.png";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -41,23 +41,18 @@ export function Header() {
       }`}
     >
       <nav className="container-wide">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
+          <Link to="/" className="flex items-center">
             <img
-              src={logoIcon}
+              src={isOnDarkPage ? logoIcon : logoBlack}
               alt="Cosmo Tech Hub"
-              className="h-10 w-auto"
+              className="h-10 md:h-12 w-auto"
             />
-            <span className={`hidden sm:block font-heading font-bold text-xl transition-colors ${
-              isOnDarkPage ? "text-white" : "text-foreground"
-            }`}>
-              COSMO <span className="font-normal">TECH HUB</span>
-            </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-6 xl:gap-8">
             {navigation.map((item) => (
               <Link
                 key={item.name}
@@ -76,9 +71,16 @@ export function Header() {
           </div>
 
           {/* CTA Buttons */}
-          <div className="hidden lg:flex items-center gap-4">
-            <Button variant={isOnDarkPage ? "ghost" : "ghost"} asChild className={isOnDarkPage ? "text-white hover:text-white hover:bg-white/10" : ""}>
-              <Link to="/contact">Schedule a Call</Link>
+          <div className="hidden lg:flex items-center gap-3">
+            <Button 
+              variant={isOnDarkPage ? "ghost" : "ghost"} 
+              asChild 
+              className={isOnDarkPage ? "text-white hover:text-white hover:bg-white/10" : ""}
+            >
+              <a href="tel:+971569949346" className="flex items-center gap-2">
+                <Phone className="h-4 w-4" />
+                <span className="hidden xl:inline">Schedule a Call</span>
+              </a>
             </Button>
             <Button variant="gradient" asChild>
               <Link to="/contact">Get a Quote</Link>
@@ -102,12 +104,12 @@ export function Header() {
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="lg:hidden absolute top-full left-0 right-0 bg-background border-b border-border shadow-lg animate-fade-in">
-            <div className="container-wide py-6 space-y-4">
+            <div className="container-wide py-4 space-y-2">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
                   to={item.href}
-                  className={`block py-2 text-lg font-medium transition-colors ${
+                  className={`block py-3 text-base font-medium transition-colors ${
                     location.pathname === item.href
                       ? "text-accent"
                       : "text-foreground/80 hover:text-accent"
@@ -118,7 +120,10 @@ export function Header() {
               ))}
               <div className="pt-4 flex flex-col gap-3">
                 <Button variant="outline" asChild className="w-full">
-                  <Link to="/contact">Schedule a Call</Link>
+                  <a href="tel:+971569949346" className="flex items-center justify-center gap-2">
+                    <Phone className="h-4 w-4" />
+                    Schedule a Call
+                  </a>
                 </Button>
                 <Button variant="gradient" asChild className="w-full">
                   <Link to="/contact">Get a Quote</Link>
