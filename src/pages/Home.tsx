@@ -130,77 +130,77 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-b from-surface-dark/50 via-transparent to-surface-dark z-[1]" />
 
         {/* Content */}
-        <div className="container-wide relative z-10 pt-20">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 text-xs sm:text-sm text-white/80 mb-6 md:mb-8">
-              <Zap className="h-4 w-4 text-accent" />
-              Enterprise Software Development
+        <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-16 relative z-10 pt-24 md:pt-20">
+          <div className="max-w-4xl mx-auto lg:mx-0">
+            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 text-xs sm:text-sm text-white/80 mb-4 sm:mb-6 md:mb-8">
+              <Zap className="h-3 w-3 sm:h-4 sm:w-4 text-accent" />
+              <span className="truncate">Enterprise Software Development</span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-display font-heading font-bold text-white leading-tight">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-display font-heading font-bold text-white leading-tight">
               Building Scalable Digital Solutions for the{" "}
               <span className="gradient-brand-text">Modern World</span>
             </h1>
 
-            <p className="mt-4 md:mt-6 text-base sm:text-lg md:text-xl text-white/70 leading-relaxed max-w-2xl">
+            <p className="mt-3 sm:mt-4 md:mt-6 text-sm sm:text-base md:text-lg lg:text-xl text-white/70 leading-relaxed max-w-2xl">
               From web applications to AI-powered systems, we deliver
               enterprise-grade technology that drives performance, scalability,
               and business growth.
             </p>
 
-            <div className="mt-8 md:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <Button variant="gradient" size="lg" asChild className="w-full sm:w-auto">
+            <div className="mt-6 sm:mt-8 md:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4">
+              <Button variant="gradient" size="lg" asChild className="w-full sm:w-auto text-sm sm:text-base">
                 <Link to="/contact">
                   Get a Quote
-                  <ArrowRight className="h-5 w-5" />
+                  <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
                 </Link>
               </Button>
-              <Button variant="outline-light" size="lg" asChild className="w-full sm:w-auto">
+              <Button variant="outline-light" size="lg" asChild className="w-full sm:w-auto text-sm sm:text-base">
                 <a href="tel:+971569949346">Schedule a Call</a>
               </Button>
             </div>
 
             {/* Technologies Scrollable */}
-            <div className="mt-12 md:mt-16 pt-6 md:pt-8 border-t border-white/10">
-              <div className="flex items-center justify-between mb-4 md:mb-6">
-                <p className="text-xs sm:text-sm text-white/50 uppercase tracking-wider">
+            <div className="mt-8 sm:mt-12 md:mt-16 pt-4 sm:pt-6 md:pt-8 border-t border-white/10">
+              <div className="flex items-center justify-between mb-3 sm:mb-4 md:mb-6">
+                <p className="text-[10px] sm:text-xs md:text-sm text-white/50 uppercase tracking-wider">
                   Technologies We Master
                 </p>
-                <div className="flex gap-2">
+                <div className="flex gap-1.5 sm:gap-2">
                   <button
                     onClick={() => scrollTech("left")}
-                    className="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
+                    className="p-1.5 sm:p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
                     aria-label="Scroll left"
                   >
-                    <ChevronLeft className="h-4 w-4" />
+                    <ChevronLeft className="h-3 w-3 sm:h-4 sm:w-4" />
                   </button>
                   <button
                     onClick={() => scrollTech("right")}
-                    className="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
+                    className="p-1.5 sm:p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
                     aria-label="Scroll right"
                   >
-                    <ChevronRight className="h-4 w-4" />
+                    <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
                   </button>
                 </div>
               </div>
               <div
                 ref={scrollContainerRef}
-                className="flex items-center gap-4 md:gap-6 overflow-x-auto scrollbar-hide pb-4"
+                className="flex items-center gap-3 sm:gap-4 md:gap-6 overflow-x-auto scrollbar-hide pb-4 -mx-4 px-4 sm:mx-0 sm:px-0"
                 style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
               >
                 {techLogos.map((tech) => (
                   <div
                     key={tech.name}
-                    className="flex flex-col items-center gap-2 shrink-0"
+                    className="flex flex-col items-center gap-1.5 sm:gap-2 shrink-0"
                   >
-                    <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-white/10 backdrop-blur-sm p-2.5 flex items-center justify-center hover:bg-white/20 transition-colors">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-lg sm:rounded-xl bg-white/10 backdrop-blur-sm p-2 sm:p-2.5 flex items-center justify-center hover:bg-white/20 transition-colors">
                       <img
                         src={tech.url}
                         alt={tech.name}
                         className="h-full w-auto"
                       />
                     </div>
-                    <span className="text-[10px] md:text-xs text-white/60 whitespace-nowrap">
+                    <span className="text-[9px] sm:text-[10px] md:text-xs text-white/60 whitespace-nowrap">
                       {tech.name}
                     </span>
                   </div>
