@@ -12,7 +12,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Mail, Phone, MapPin, Send, CheckCircle2 } from "lucide-react";
+import { Mail, Phone, MapPin, Send, CheckCircle2, AlertCircle } from "lucide-react";
+import { z } from "zod";
 
 const offices = [
   {
@@ -52,19 +53,148 @@ const budgetRanges = [
   "Not sure yet",
 ];
 
+// Validation schema with XSS protection
+const contactFormSchema = z.object({
+  firstName: z
+    .string()
+    .min(2, "First name must be at least 2 characters")
+    .max(50, "First name must be less than 50 characters")
+    .regex(/^[a-zA-Z\s'-]+$/, "First name can only contain letters, spaces, hyphens, and apostrophes"),
+  lastName: z
+    .string()
+    .min(2, "Last name must be at least 2 characters")
+    .max(50, "Last name must be less than 50 characters")
+    .regex(/^[a-zA-Z\s'-]+$/, "Last name can only contain letters, spaces, hyphens, and apostrophes"),
+  email: z
+    .string()
+    .email("Please enter a valid email address")
+    .max(100, "Email must be less than 100 characters"),
+  company: z
+    .string()
+    .max(100, "Company name must be less than 100 characters")
+    .regex(/^[a-zA-Z0-9\s.,&'-]*$/, "Company name contains invalid characters")
+    .optional()
+    .or(z.literal("")),
+  service: z.string().min(1, "Please select a service"),
+  budget: z.string().optional(),
+  message: z
+    .string()
+    .min(20, "Please provide at least 20 characters about your project")
+    .max(2000, "Message must be less than 2000 characters")
+    .refine(
+      (val) => !/<script|javascript:|on\w+=/i.test(val),
+      "Invalid characters detected in message"
+    ),
+});
+
+type ContactFormData = z.infer<typeof contactFormSchema>;
+
+// Sanitize input to prevent XSS
+const sanitizeInput = (input: string): string => {
+  return input
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#x27;")
+    .replace(/\//g, "&#x2F;");
+};
+
 export default function Contact() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState<Partial<Record<keyof ContactFormData, string>>>({});
+  const [formData, setFormData] = useState<ContactFormData>({
+    firstName: "",
+    lastName: "",
+    email: "",
+    company: "",
+    service: "",
+    budget: "",
+    message: "",
+  });
+
+  const validateField = (name: keyof ContactFormData, value: string) => {
+    try {
+      const fieldSchema = contactFormSchema.shape[name];
+      fieldSchema.parse(value);
+      setErrors((prev) => ({ ...prev, [name]: undefined }));
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        setErrors((prev) => ({ ...prev, [name]: error.errors[0]?.message }));
+      }
+    }
+  };
+
+  const handleInputChange = (name: keyof ContactFormData, value: string) => {
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    validateField(name, value);
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setErrors({});
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      // Validate all fields
+      const validatedData = contactFormSchema.parse(formData);
 
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+      // Sanitize all inputs
+      const sanitizedData = {
+        firstName: sanitizeInput(validatedData.firstName),
+        lastName: sanitizeInput(validatedData.lastName),
+        email: sanitizeInput(validatedData.email),
+        company: sanitizeInput(validatedData.company || ""),
+        service: sanitizeInput(validatedData.service),
+        budget: sanitizeInput(validatedData.budget || ""),
+        message: sanitizeInput(validatedData.message),
+      };
+
+      // Create mailto link with form data
+      const subject = encodeURIComponent(
+        `New Project Inquiry - ${sanitizedData.service}`
+      );
+      const body = encodeURIComponent(
+        `Name: ${sanitizedData.firstName} ${sanitizedData.lastName}\n` +
+          `Email: ${sanitizedData.email}\n` +
+          `Company: ${sanitizedData.company || "Not provided"}\n` +
+          `Service: ${sanitizedData.service}\n` +
+          `Budget: ${sanitizedData.budget || "Not specified"}\n\n` +
+          `Project Details:\n${sanitizedData.message}`
+      );
+
+      // Open mail client
+      window.location.href = `mailto:mmatiullah552@gmail.com?subject=${subject}&body=${body}`;
+
+      // Show success after a brief delay
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      setIsSubmitted(true);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const fieldErrors: Partial<Record<keyof ContactFormData, string>> = {};
+        error.errors.forEach((err) => {
+          const field = err.path[0] as keyof ContactFormData;
+          fieldErrors[field] = err.message;
+        });
+        setErrors(fieldErrors);
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const resetForm = () => {
+    setIsSubmitted(false);
+    setFormData({
+      firstName: "",
+      lastName: "",
+      email: "",
+      company: "",
+      service: "",
+      budget: "",
+      message: "",
+    });
+    setErrors({});
   };
 
   return (
@@ -151,14 +281,16 @@ export default function Contact() {
                   </div>
                   <h3 className="text-xl md:text-title font-heading font-bold mb-3 md:mb-4">Thank You!</h3>
                   <p className="text-sm md:text-base text-muted-foreground max-w-md mx-auto">
-                    We've received your message and will get back to you within
-                    24 hours. In the meantime, feel free to explore our
-                    services.
+                    Your email client should have opened with the message. If not, 
+                    please email us directly at{" "}
+                    <a href="mailto:mmatiullah552@gmail.com" className="text-accent hover:underline">
+                      mmatiullah552@gmail.com
+                    </a>
                   </p>
                   <Button
                     variant="outline"
                     className="mt-6 md:mt-8"
-                    onClick={() => setIsSubmitted(false)}
+                    onClick={resetForm}
                   >
                     Send Another Message
                   </Button>
@@ -171,18 +303,32 @@ export default function Contact() {
                       <Input
                         id="firstName"
                         placeholder="John"
-                        required
-                        className="h-11 md:h-12 text-sm md:text-base"
+                        value={formData.firstName}
+                        onChange={(e) => handleInputChange("firstName", e.target.value)}
+                        className={`h-11 md:h-12 text-sm md:text-base ${errors.firstName ? "border-red-500" : ""}`}
                       />
+                      {errors.firstName && (
+                        <p className="text-xs text-red-500 flex items-center gap-1">
+                          <AlertCircle className="h-3 w-3" />
+                          {errors.firstName}
+                        </p>
+                      )}
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="lastName" className="text-sm">Last Name *</Label>
                       <Input
                         id="lastName"
                         placeholder="Smith"
-                        required
-                        className="h-11 md:h-12 text-sm md:text-base"
+                        value={formData.lastName}
+                        onChange={(e) => handleInputChange("lastName", e.target.value)}
+                        className={`h-11 md:h-12 text-sm md:text-base ${errors.lastName ? "border-red-500" : ""}`}
                       />
+                      {errors.lastName && (
+                        <p className="text-xs text-red-500 flex items-center gap-1">
+                          <AlertCircle className="h-3 w-3" />
+                          {errors.lastName}
+                        </p>
+                      )}
                     </div>
                   </div>
 
@@ -193,25 +339,43 @@ export default function Contact() {
                         id="email"
                         type="email"
                         placeholder="john@company.com"
-                        required
-                        className="h-11 md:h-12 text-sm md:text-base"
+                        value={formData.email}
+                        onChange={(e) => handleInputChange("email", e.target.value)}
+                        className={`h-11 md:h-12 text-sm md:text-base ${errors.email ? "border-red-500" : ""}`}
                       />
+                      {errors.email && (
+                        <p className="text-xs text-red-500 flex items-center gap-1">
+                          <AlertCircle className="h-3 w-3" />
+                          {errors.email}
+                        </p>
+                      )}
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="company" className="text-sm">Company</Label>
                       <Input
                         id="company"
                         placeholder="Your Company"
-                        className="h-11 md:h-12 text-sm md:text-base"
+                        value={formData.company}
+                        onChange={(e) => handleInputChange("company", e.target.value)}
+                        className={`h-11 md:h-12 text-sm md:text-base ${errors.company ? "border-red-500" : ""}`}
                       />
+                      {errors.company && (
+                        <p className="text-xs text-red-500 flex items-center gap-1">
+                          <AlertCircle className="h-3 w-3" />
+                          {errors.company}
+                        </p>
+                      )}
                     </div>
                   </div>
 
                   <div className="grid sm:grid-cols-2 gap-4 md:gap-6">
                     <div className="space-y-2">
                       <Label htmlFor="service" className="text-sm">Service Interested In *</Label>
-                      <Select required>
-                        <SelectTrigger className="h-11 md:h-12 text-sm md:text-base">
+                      <Select
+                        value={formData.service}
+                        onValueChange={(value) => handleInputChange("service", value)}
+                      >
+                        <SelectTrigger className={`h-11 md:h-12 text-sm md:text-base ${errors.service ? "border-red-500" : ""}`}>
                           <SelectValue placeholder="Select a service" />
                         </SelectTrigger>
                         <SelectContent>
@@ -222,10 +386,19 @@ export default function Contact() {
                           ))}
                         </SelectContent>
                       </Select>
+                      {errors.service && (
+                        <p className="text-xs text-red-500 flex items-center gap-1">
+                          <AlertCircle className="h-3 w-3" />
+                          {errors.service}
+                        </p>
+                      )}
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="budget" className="text-sm">Estimated Budget</Label>
-                      <Select>
+                      <Select
+                        value={formData.budget}
+                        onValueChange={(value) => handleInputChange("budget", value)}
+                      >
                         <SelectTrigger className="h-11 md:h-12 text-sm md:text-base">
                           <SelectValue placeholder="Select budget range" />
                         </SelectTrigger>
@@ -245,9 +418,16 @@ export default function Contact() {
                     <Textarea
                       id="message"
                       placeholder="Tell us about your project, goals, and timeline..."
-                      required
-                      className="min-h-[120px] md:min-h-[150px] resize-none text-sm md:text-base"
+                      value={formData.message}
+                      onChange={(e) => handleInputChange("message", e.target.value)}
+                      className={`min-h-[120px] md:min-h-[150px] resize-none text-sm md:text-base ${errors.message ? "border-red-500" : ""}`}
                     />
+                    {errors.message && (
+                      <p className="text-xs text-red-500 flex items-center gap-1">
+                        <AlertCircle className="h-3 w-3" />
+                        {errors.message}
+                      </p>
+                    )}
                   </div>
 
                   <Button
@@ -258,7 +438,7 @@ export default function Contact() {
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? (
-                      "Sending..."
+                      "Preparing..."
                     ) : (
                       <>
                         Send Message
@@ -268,7 +448,11 @@ export default function Contact() {
                   </Button>
 
                   <p className="text-xs md:text-sm text-muted-foreground text-center">
-                    By submitting this form, you agree to our privacy policy.
+                    By submitting this form, you agree to our{" "}
+                    <a href="/privacy-policy" className="text-accent hover:underline">
+                      privacy policy
+                    </a>
+                    .
                   </p>
                 </form>
               )}
