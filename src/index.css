@@ -196,7 +196,7 @@
 @layer utilities {
   /* Container */
   .container-wide {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply w-full px-4 sm:px-6 lg:px-8 xl:px-16;
   }
   
   /* Text sizes */

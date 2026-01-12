@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Linkedin, Twitter, Github } from "lucide-react";
-import logoIcon from "@/assets/logo-icon.png";
+import { Mail, Phone, MapPin, Linkedin } from "lucide-react";
+import logoWhite from "@/assets/logo-white.png";
 
 const footerLinks = {
   company: [
@@ -41,13 +41,13 @@ const offices = [
 export function Footer() {
   return (
     <footer className="section-dark">
-      <div className="container-wide py-12 lg:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+      <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-16 py-12 lg:py-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-8">
           {/* Brand Column */}
-          <div className="md:col-span-2 lg:col-span-1">
+          <div className="sm:col-span-2 lg:col-span-1">
             <Link to="/" className="inline-block">
               <img
-                src={logoIcon}
+                src={logoWhite}
                 alt="Cosmo Tech Hub"
                 className="h-12 w-auto"
               />
@@ -57,27 +57,15 @@ export function Footer() {
               From web applications to AI-powered systems, we deliver
               enterprise-grade technology.
             </p>
-            <div className="mt-6 flex gap-4">
+            <div className="mt-6">
               <a
-                href="#"
-                className="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
+                href="https://www.linkedin.com/company/107896642"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="h-5 w-5" />
-              </a>
-              <a
-                href="#"
-                className="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
-                aria-label="Twitter"
-              >
-                <Twitter className="h-5 w-5" />
-              </a>
-              <a
-                href="#"
-                className="p-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors"
-                aria-label="GitHub"
-              >
-                <Github className="h-5 w-5" />
               </a>
             </div>
           </div>

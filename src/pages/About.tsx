@@ -32,29 +32,29 @@ const values = [
 ];
 
 const milestones = [
-  { year: "2014", event: "Founded in San Francisco" },
+  { year: "2014", event: "Founded in Dubai, UAE" },
   { year: "2016", event: "Expanded to enterprise clients" },
   { year: "2018", event: "Launched AI solutions division" },
-  { year: "2020", event: "Global remote team established" },
-  { year: "2023", event: "150+ projects completed" },
+  { year: "2020", event: "Global team established across 3 countries" },
+  { year: "2024", event: "Serving clients worldwide" },
 ];
 
 export default function About() {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="pt-32 pb-20 lg:pt-40 lg:pb-28 section-dark relative overflow-hidden">
+      <section className="pt-24 pb-12 md:pt-32 md:pb-20 lg:pt-40 lg:pb-28 section-dark relative overflow-hidden">
         <div className="absolute inset-0 grid-pattern-dark opacity-50" />
         <div className="container-wide relative">
           <div className="max-w-3xl">
-            <span className="inline-block text-sm font-semibold uppercase tracking-wider text-accent mb-4">
+            <span className="inline-block text-xs md:text-sm font-semibold uppercase tracking-wider text-accent mb-3 md:mb-4">
               About Us
             </span>
-            <h1 className="text-display text-surface-dark-foreground">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-display font-heading font-bold text-surface-dark-foreground leading-tight">
               Engineering the Future of{" "}
               <span className="gradient-brand-text">Digital Business</span>
             </h1>
-            <p className="mt-6 text-xl text-surface-dark-foreground/70 leading-relaxed">
+            <p className="mt-4 md:mt-6 text-base md:text-xl text-surface-dark-foreground/70 leading-relaxed">
               Cosmo Tech Hub is a technology company focused on building
               scalable, secure, and high-performance software solutions for
               businesses worldwide.
@@ -175,7 +175,7 @@ export default function About() {
             Global Reach, Local Expertise
           </h2>
           <p className="mt-6 text-xl text-surface-dark-foreground/70">
-            Headquartered in San Francisco with team members across the globe,
+            Headquartered in Dubai with offices in the UK and Pakistan,
             we bring diverse perspectives and round-the-clock capabilities to
             every project.
           </p>
