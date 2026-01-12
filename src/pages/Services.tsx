@@ -102,18 +102,18 @@ export default function Services() {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="pt-32 pb-20 lg:pt-40 lg:pb-28 section-dark relative overflow-hidden">
+      <section className="pt-24 pb-12 md:pt-32 md:pb-20 lg:pt-40 lg:pb-28 section-dark relative overflow-hidden">
         <div className="absolute inset-0 grid-pattern-dark opacity-50" />
         <div className="container-wide relative">
           <div className="max-w-3xl">
-            <span className="inline-block text-sm font-semibold uppercase tracking-wider text-accent mb-4">
+            <span className="inline-block text-xs md:text-sm font-semibold uppercase tracking-wider text-accent mb-3 md:mb-4">
               Our Services
             </span>
-            <h1 className="text-display text-surface-dark-foreground">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-display font-heading font-bold text-surface-dark-foreground leading-tight">
               Technology Solutions That{" "}
               <span className="gradient-brand-text">Drive Results</span>
             </h1>
-            <p className="mt-6 text-xl text-surface-dark-foreground/70 leading-relaxed">
+            <p className="mt-4 md:mt-6 text-base md:text-xl text-surface-dark-foreground/70 leading-relaxed">
               End-to-end software development services designed for businesses
               that demand quality, scalability, and reliability.
             </p>
