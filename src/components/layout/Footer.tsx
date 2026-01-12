@@ -161,12 +161,12 @@ export function Footer() {
               © {new Date().getFullYear()} Cosmo Tech Hub. All rights reserved.
             </p>
             <div className="flex gap-6 text-xs text-surface-dark-foreground/60">
-              <a href="#" className="hover:text-white transition-colors">
+              <Link to="/privacy-policy" className="hover:text-white transition-colors">
                 Privacy Policy
-              </a>
-              <a href="#" className="hover:text-white transition-colors">
+              </Link>
+              <Link to="/terms-of-service" className="hover:text-white transition-colors">
                 Terms of Service
-              </a>
+              </Link>
             </div>
           </div>
         </div>
