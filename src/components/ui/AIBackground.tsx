@@ -35,8 +35,8 @@ export function AIBackground() {
     particlesRef.current = Array.from({ length: particleCount }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.5,
-      vy: (Math.random() - 0.5) * 0.5,
+      vx: (Math.random() - 0.5) * 2,
+      vy: (Math.random() - 0.5) * 2,
       size: Math.random() * 2 + 1,
       opacity: Math.random() * 0.5 + 0.2,
     }));
@@ -65,9 +65,9 @@ export function AIBackground() {
         particle.x += particle.vx;
         particle.y += particle.vy;
 
-        // Damping
-        particle.vx *= 0.99;
-        particle.vy *= 0.99;
+        // Damping (less damping for faster movement)
+        particle.vx *= 0.995;
+        particle.vy *= 0.995;
 
         // Boundary check
         if (particle.x < 0) particle.x = canvas.width;
