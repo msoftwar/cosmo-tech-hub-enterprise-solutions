@@ -173,14 +173,22 @@
     @apply border-accent/50 shadow-lg shadow-accent/10 -translate-y-1;
   }
   
-  /* Service cards */
+  /* Service cards - enhanced glassmorphism */
   .service-card {
-    @apply p-8 rounded-2xl border border-border bg-card transition-all duration-500;
+    @apply p-8 rounded-2xl border border-border/50 bg-gradient-to-br from-card to-secondary/30 backdrop-blur-sm transition-all duration-500 relative overflow-hidden;
+  }
+  
+  .service-card::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-brand-purple/5 opacity-0 transition-opacity duration-500;
+  }
+  
+  .service-card:hover::before {
+    @apply opacity-100;
   }
   
   .service-card:hover {
-    @apply border-transparent shadow-2xl shadow-black/10;
-    background: linear-gradient(135deg, hsl(var(--card)) 0%, hsl(var(--secondary)) 100%);
+    @apply border-accent/50 shadow-2xl shadow-accent/10 -translate-y-1;
   }
   
   /* Process step */

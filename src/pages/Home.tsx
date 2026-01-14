@@ -13,9 +13,21 @@ import {
   Zap,
   Shield,
   Users,
+  BarChart3,
+  Database,
 } from "lucide-react";
-import { AIBackground } from "@/components/ui/AIBackground";
+import { ParticleField } from "@/components/ui/ParticleField";
 import { useRef, useEffect, useState } from "react";
+import {
+  motion,
+  FadeInUp,
+  StaggerContainer,
+  StaggerItem,
+  HoverScale,
+  GlowOrb,
+  AnimatedGradientText,
+  FloatingElement,
+} from "@/components/ui/motion";
 
 const services = [
   {
@@ -45,6 +57,20 @@ const services = [
     description:
       "Tailored software solutions designed to solve your unique business challenges.",
     features: ["System Integration", "Legacy Modernization", "Scalable Design"],
+  },
+  {
+    icon: BarChart3,
+    title: "Data Analytics",
+    description:
+      "Transform raw data into actionable insights with advanced analytics and visualization solutions.",
+    features: ["Business Intelligence", "Data Visualization", "Predictive Analytics"],
+  },
+  {
+    icon: Database,
+    title: "Data Engineering",
+    description:
+      "Build robust data pipelines and infrastructure to power your data-driven decisions.",
+    features: ["ETL Pipelines", "Data Warehousing", "Real-time Processing"],
   },
 ];
 
@@ -91,7 +117,6 @@ const techLogos = [
   { name: "HTML5", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg", category: "frontend" },
   { name: "CSS3", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg", category: "frontend" },
   { name: "Tailwind CSS", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg", category: "frontend" },
-  { name: "Bootstrap", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg", category: "frontend" },
   { name: "TypeScript", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg", category: "frontend" },
   // Backend
   { name: "Node.js", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg", category: "backend" },
@@ -120,13 +145,12 @@ export default function Home() {
 
     let animationId: number;
     let scrollPosition = 0;
-    const scrollSpeed = 0.5; // pixels per frame
+    const scrollSpeed = 0.5;
 
     const animate = () => {
       if (!isPaused && container) {
         scrollPosition += scrollSpeed;
         
-        // Reset to beginning when reaching the end (seamless loop)
         if (scrollPosition >= container.scrollWidth / 2) {
           scrollPosition = 0;
         }
@@ -147,45 +171,84 @@ export default function Home() {
     <Layout>
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center overflow-hidden bg-surface-dark">
-        {/* AI Background */}
-        <AIBackground />
+        {/* Particle Field Background */}
+        <ParticleField className="z-[1]" />
+        
+        {/* Animated Glow Orbs */}
+        <GlowOrb color="purple" size="xl" className="top-1/4 -left-48 z-0" />
+        <GlowOrb color="blue" size="lg" className="bottom-1/4 right-0 z-0" />
+        <GlowOrb color="red" size="md" className="top-1/2 left-1/3 z-0" />
         
         {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-surface-dark/50 via-transparent to-surface-dark z-[1]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-surface-dark/80 via-surface-dark/40 to-surface-dark z-[2]" />
 
         {/* Content */}
         <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-16 relative z-10 pt-24 md:pt-20">
           <div className="max-w-4xl mx-auto lg:mx-0">
-            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 text-xs sm:text-sm text-white/80 mb-4 sm:mb-6 md:mb-8">
-              <Zap className="h-3 w-3 sm:h-4 sm:w-4 text-accent" />
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-xs sm:text-sm text-white/80 mb-4 sm:mb-6 md:mb-8"
+            >
+              <motion.div
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                <Zap className="h-3 w-3 sm:h-4 sm:w-4 text-accent" />
+              </motion.div>
               <span className="truncate">Enterprise Software Development</span>
-            </div>
+            </motion.div>
 
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-display font-heading font-bold text-white leading-tight">
+            <motion.h1 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-display font-heading font-bold text-white leading-tight"
+            >
               Building Scalable Digital Solutions for the{" "}
-              <span className="gradient-brand-text">Modern World</span>
-            </h1>
+              <AnimatedGradientText>Modern World</AnimatedGradientText>
+            </motion.h1>
 
-            <p className="mt-3 sm:mt-4 md:mt-6 text-sm sm:text-base md:text-lg lg:text-xl text-white/70 leading-relaxed max-w-2xl">
+            <motion.p 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="mt-3 sm:mt-4 md:mt-6 text-sm sm:text-base md:text-lg lg:text-xl text-white/70 leading-relaxed max-w-2xl"
+            >
               From web applications to AI-powered systems, we deliver
               enterprise-grade technology that drives performance, scalability,
               and business growth.
-            </p>
+            </motion.p>
 
-            <div className="mt-6 sm:mt-8 md:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4">
-              <Button variant="gradient" size="lg" asChild className="w-full sm:w-auto text-sm sm:text-base">
-                <Link to="/contact">
-                  Get a Quote
-                  <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
-                </Link>
-              </Button>
-              <Button variant="outline-light" size="lg" asChild className="w-full sm:w-auto text-sm sm:text-base">
-                <a href="tel:+971569949346">Schedule a Call</a>
-              </Button>
-            </div>
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="mt-6 sm:mt-8 md:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4"
+            >
+              <HoverScale>
+                <Button variant="gradient" size="lg" asChild className="w-full sm:w-auto text-sm sm:text-base shadow-lg shadow-accent/25">
+                  <Link to="/contact">
+                    Get a Quote
+                    <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
+                  </Link>
+                </Button>
+              </HoverScale>
+              <HoverScale>
+                <Button variant="outline-light" size="lg" asChild className="w-full sm:w-auto text-sm sm:text-base backdrop-blur-sm">
+                  <a href="tel:+971569949346">Schedule a Call</a>
+                </Button>
+              </HoverScale>
+            </motion.div>
 
             {/* Technologies Auto-Scrolling */}
-            <div className="mt-8 sm:mt-12 md:mt-16 pt-4 sm:pt-6 md:pt-8 border-t border-white/10">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 0.8 }}
+              className="mt-8 sm:mt-12 md:mt-16 pt-4 sm:pt-6 md:pt-8 border-t border-white/10"
+            >
               <div className="flex items-center justify-between mb-3 sm:mb-4 md:mb-6">
                 <p className="text-[10px] sm:text-xs md:text-sm text-white/50 uppercase tracking-wider">
                   Technologies We Master
@@ -205,11 +268,12 @@ export default function Home() {
               >
                 {/* Duplicate logos for seamless infinite scroll */}
                 {[...techLogos, ...techLogos].map((tech, index) => (
-                  <div
+                  <motion.div
                     key={`${tech.name}-${index}`}
+                    whileHover={{ scale: 1.1, y: -5 }}
                     className="flex flex-col items-center gap-1.5 sm:gap-2 shrink-0"
                   >
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-lg sm:rounded-xl bg-white/10 backdrop-blur-sm p-2 sm:p-2.5 flex items-center justify-center hover:bg-white/20 transition-colors">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-lg sm:rounded-xl bg-white/5 backdrop-blur-md border border-white/10 p-2 sm:p-2.5 flex items-center justify-center hover:bg-white/10 hover:border-accent/50 transition-all duration-300 hover:shadow-lg hover:shadow-accent/20">
                       <img
                         src={tech.url}
                         alt={tech.name}
@@ -219,48 +283,53 @@ export default function Home() {
                     <span className="text-[9px] sm:text-[10px] md:text-xs text-white/60 whitespace-nowrap">
                       {tech.name}
                     </span>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* Services Section */}
       <Section id="services">
-        <SectionHeader
-          eyebrow="Our Services"
-          title="End-to-End Technology Solutions"
-          description="We provide comprehensive software development services tailored to your business needs."
-        />
+        <FadeInUp>
+          <SectionHeader
+            eyebrow="Our Services"
+            title="End-to-End Technology Solutions"
+            description="We provide comprehensive software development services tailored to your business needs."
+          />
+        </FadeInUp>
 
-        <div className="mt-10 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+        <StaggerContainer className="mt-10 md:mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {services.map((service, index) => (
-            <ServiceCard
-              key={index}
-              icon={service.icon}
-              title={service.title}
-              description={service.description}
-              features={service.features}
-            />
+            <StaggerItem key={index}>
+              <HoverScale>
+                <ServiceCard
+                  icon={service.icon}
+                  title={service.title}
+                  description={service.description}
+                  features={service.features}
+                />
+              </HoverScale>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
 
-        <div className="mt-10 md:mt-12 text-center">
+        <FadeInUp delay={0.3} className="mt-10 md:mt-12 text-center">
           <Button variant="outline" size="lg" asChild>
             <Link to="/services">
               View All Services
               <ArrowRight className="h-4 w-4" />
             </Link>
           </Button>
-        </div>
+        </FadeInUp>
       </Section>
 
       {/* Why Choose Us */}
       <Section dark>
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-          <div>
+          <FadeInUp>
             <SectionHeader
               eyebrow="Why Cosmo Tech Hub"
               title="Engineering Excellence Meets Business Understanding"
@@ -268,7 +337,7 @@ export default function Home() {
               centered={false}
             />
 
-            <div className="mt-8 md:mt-10 space-y-5 md:space-y-6">
+            <StaggerContainer className="mt-8 md:mt-10 space-y-5 md:space-y-6">
               {[
                 {
                   icon: Shield,
@@ -289,85 +358,110 @@ export default function Home() {
                     "Senior engineers assigned to your project with direct communication.",
                 },
               ].map((item, index) => (
-                <div key={index} className="flex gap-4">
-                  <div className="shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-lg bg-accent/10 flex items-center justify-center">
-                    <item.icon className="h-5 w-5 md:h-6 md:w-6 text-accent" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-sm md:text-base text-surface-dark-foreground mb-1">
-                      {item.title}
-                    </h4>
-                    <p className="text-sm md:text-base text-surface-dark-foreground/70">
-                      {item.description}
+                <StaggerItem key={index}>
+                  <motion.div 
+                    className="flex gap-4 p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/5 hover:border-accent/30 transition-all duration-300"
+                    whileHover={{ x: 10 }}
+                  >
+                    <div className="shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-lg gradient-brand flex items-center justify-center shadow-lg shadow-accent/20">
+                      <item.icon className="h-5 w-5 md:h-6 md:w-6 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-sm md:text-base text-surface-dark-foreground mb-1">
+                        {item.title}
+                      </h4>
+                      <p className="text-sm md:text-base text-surface-dark-foreground/70">
+                        {item.description}
+                      </p>
+                    </div>
+                  </motion.div>
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
+          </FadeInUp>
+
+          <FadeInUp delay={0.2}>
+            <div className="relative">
+              <FloatingElement duration={8}>
+                <div className="aspect-square rounded-2xl bg-gradient-to-br from-white/5 to-white/0 backdrop-blur-sm border border-white/10 p-6 md:p-8 flex items-center justify-center relative overflow-hidden">
+                  <div className="absolute inset-0 grid-pattern-dark opacity-30" />
+                  <GlowOrb color="accent" size="md" className="top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+                  <div className="text-center relative z-10">
+                    <motion.div 
+                      className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold gradient-brand-text mb-3 md:mb-4"
+                      initial={{ scale: 0.5, opacity: 0 }}
+                      whileInView={{ scale: 1, opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6, type: "spring" }}
+                    >
+                      10+
+                    </motion.div>
+                    <p className="text-lg md:text-xl text-surface-dark-foreground/70">
+                      Years of Experience
                     </p>
                   </div>
                 </div>
-              ))}
+              </FloatingElement>
             </div>
-          </div>
-
-          <div className="relative">
-            <div className="aspect-square rounded-2xl grid-pattern-dark border border-white/10 p-6 md:p-8 flex items-center justify-center">
-              <div className="text-center">
-                <div className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold gradient-brand-text mb-3 md:mb-4">
-                  10+
-                </div>
-                <p className="text-lg md:text-xl text-surface-dark-foreground/70">
-                  Years of Experience
-                </p>
-              </div>
-            </div>
-          </div>
+          </FadeInUp>
         </div>
       </Section>
 
       {/* Process Section */}
       <Section id="process">
-        <SectionHeader
-          eyebrow="Our Process"
-          title="How We Deliver Results"
-          description="A proven methodology that ensures quality, transparency, and on-time delivery."
-        />
+        <FadeInUp>
+          <SectionHeader
+            eyebrow="Our Process"
+            title="How We Deliver Results"
+            description="A proven methodology that ensures quality, transparency, and on-time delivery."
+          />
+        </FadeInUp>
 
-        <div className="mt-10 md:mt-16 max-w-2xl mx-auto">
+        <StaggerContainer className="mt-10 md:mt-16 max-w-2xl mx-auto">
           {processSteps.map((step, index) => (
-            <ProcessStep
-              key={index}
-              number={step.number}
-              title={step.title}
-              description={step.description}
-              isLast={index === processSteps.length - 1}
-            />
+            <StaggerItem key={index}>
+              <ProcessStep
+                number={step.number}
+                title={step.title}
+                description={step.description}
+                isLast={index === processSteps.length - 1}
+              />
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
       </Section>
 
       {/* CTA Section */}
       <Section dark className="relative overflow-hidden">
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] md:w-[800px] h-[600px] md:h-[800px] rounded-full bg-gradient-radial from-accent/30 to-transparent" />
-        </div>
+        <GlowOrb color="accent" size="xl" className="top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+        <GlowOrb color="purple" size="lg" className="top-0 right-0" />
+        <GlowOrb color="blue" size="lg" className="bottom-0 left-0" />
 
-        <div className="relative text-center max-w-3xl mx-auto px-4">
+        <FadeInUp className="relative text-center max-w-3xl mx-auto px-4">
           <h2 className="text-2xl sm:text-3xl md:text-headline font-heading font-bold text-surface-dark-foreground">
-            Ready to Build Something Powerful?
+            Ready to Build Something{" "}
+            <AnimatedGradientText>Powerful?</AnimatedGradientText>
           </h2>
           <p className="mt-4 md:mt-6 text-base md:text-xl text-surface-dark-foreground/70">
             Let's discuss your project requirements and explore how we can help
             you achieve your goals.
           </p>
           <div className="mt-8 md:mt-10 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
-            <Button variant="gradient" size="lg" asChild className="w-full sm:w-auto">
-              <Link to="/contact">
-                Start Your Project
-                <ArrowRight className="h-5 w-5" />
-              </Link>
-            </Button>
-            <Button variant="outline-light" size="lg" asChild className="w-full sm:w-auto">
-              <Link to="/technologies">Explore Technologies</Link>
-            </Button>
+            <HoverScale>
+              <Button variant="gradient" size="lg" asChild className="w-full sm:w-auto shadow-lg shadow-accent/25">
+                <Link to="/contact">
+                  Start Your Project
+                  <ArrowRight className="h-5 w-5" />
+                </Link>
+              </Button>
+            </HoverScale>
+            <HoverScale>
+              <Button variant="outline-light" size="lg" asChild className="w-full sm:w-auto backdrop-blur-sm">
+                <Link to="/technologies">Explore Technologies</Link>
+              </Button>
+            </HoverScale>
           </div>
-        </div>
+        </FadeInUp>
       </Section>
     </Layout>
   );
