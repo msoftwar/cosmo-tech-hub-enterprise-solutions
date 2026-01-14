@@ -14,7 +14,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        heading: ['Montserrat', 'sans-serif'],
+        heading: ['Space Grotesk', 'sans-serif'],
         body: ['Inter', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
       },
@@ -56,6 +56,12 @@ export default {
         "brand-red": "hsl(var(--brand-red))",
         "brand-blue": "hsl(var(--brand-blue))",
         "brand-purple": "hsl(var(--brand-purple))",
+        "brand-cyan": "hsl(var(--brand-cyan))",
+        "brand-pink": "hsl(var(--brand-pink))",
+        // Glow colors
+        "glow-cyan": "hsl(var(--glow-cyan))",
+        "glow-purple": "hsl(var(--glow-purple))",
+        "glow-pink": "hsl(var(--glow-pink))",
         // Surface
         "surface-dark": "hsl(var(--surface-dark))",
         "surface-dark-foreground": "hsl(var(--surface-dark-foreground))",
