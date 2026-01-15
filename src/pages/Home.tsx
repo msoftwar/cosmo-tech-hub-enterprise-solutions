@@ -15,12 +15,8 @@ import {
   Users,
   BarChart3,
   Database,
-  CheckCircle2,
-  Star,
-  TrendingUp,
-  Clock,
 } from "lucide-react";
-import { AIBackground } from "@/components/ui/AIBackground";
+import { StarfieldBackground } from "@/components/ui/StarfieldBackground";
 import { HeroVisual } from "@/components/ui/HeroVisual";
 import { useRef, useEffect, useState } from "react";
 import {
@@ -30,8 +26,6 @@ import {
   StaggerItem,
   HoverScale,
   GlowOrb,
-  AnimatedGradientText,
-  AnimatedCounter,
 } from "@/components/ui/motion";
 
 const services = [
@@ -112,13 +106,6 @@ const processSteps = [
   },
 ];
 
-const stats = [
-  { value: 10, suffix: "+", label: "Years Experience", icon: Clock },
-  { value: 200, suffix: "+", label: "Projects Delivered", icon: CheckCircle2 },
-  { value: 50, suffix: "+", label: "Happy Clients", icon: Star },
-  { value: 99, suffix: "%", label: "Client Satisfaction", icon: TrendingUp },
-];
-
 // Organized by category: Frontend, Backend, Databases, Cloud/Mobile
 const techLogos = [
   { name: "React", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg", category: "frontend" },
@@ -173,17 +160,14 @@ export default function Home() {
     <Layout>
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center overflow-hidden bg-surface-dark">
-        {/* AI Background */}
-        <AIBackground />
+        {/* Starfield Background */}
+        <StarfieldBackground />
         
-        {/* Grid overlay */}
-        <div className="absolute inset-0 grid-pattern-dark z-[1]" />
-        
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-surface-dark via-surface-dark/90 to-surface-dark/80 z-[2]" />
+        {/* Gradient overlay for readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-surface-dark/30 to-surface-dark/80 z-[2]" />
 
         {/* Content */}
-        <div className="w-full container-wide relative z-10 pt-24 lg:pt-20">
+        <div className="w-full container-wide relative z-10 pt-32 lg:pt-28">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
             {/* Left: Text content */}
             <div className="max-w-2xl">
@@ -191,7 +175,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-sm text-white/80 mb-6"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-sm text-white/80 mb-8"
               >
                 <motion.div
                   animate={{ scale: [1, 1.2, 1] }}
@@ -244,25 +228,6 @@ export default function Home() {
                     <a href="tel:+971569949346">Schedule a Call</a>
                   </Button>
                 </HoverScale>
-              </motion.div>
-
-              {/* Quick stats */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1, delay: 0.8 }}
-                className="mt-12 grid grid-cols-3 gap-6"
-              >
-                {[
-                  { value: "10+", label: "Years" },
-                  { value: "200+", label: "Projects" },
-                  { value: "99%", label: "Satisfaction" },
-                ].map((stat, i) => (
-                  <div key={i} className="text-center lg:text-left">
-                    <div className="text-2xl lg:text-3xl font-heading font-bold text-white">{stat.value}</div>
-                    <div className="text-xs lg:text-sm text-white/40 mt-1">{stat.label}</div>
-                  </div>
-                ))}
               </motion.div>
             </div>
 
@@ -320,31 +285,6 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
-
-      {/* Stats Section */}
-      <Section className="relative overflow-hidden">
-        <div className="absolute inset-0 dot-pattern opacity-50" />
-        <div className="relative grid grid-cols-2 lg:grid-cols-4 gap-6">
-          {stats.map((stat, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="text-center p-8 rounded-2xl bg-card border border-border/50 hover:border-accent/30 transition-all duration-500 hover:shadow-xl hover:shadow-accent/5"
-            >
-              <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-brand-cyan/10 to-brand-purple/10 border border-accent/20 mb-4">
-                <stat.icon className="w-6 h-6 text-accent" />
-              </div>
-              <div className="text-4xl lg:text-5xl font-heading font-bold gradient-brand-text">
-                <AnimatedCounter value={stat.value} />{stat.suffix}
-              </div>
-              <div className="text-sm text-muted-foreground mt-2">{stat.label}</div>
-            </motion.div>
-          ))}
-        </div>
-      </Section>
 
       {/* Services Section */}
       <Section id="services" dark className="relative overflow-hidden">
