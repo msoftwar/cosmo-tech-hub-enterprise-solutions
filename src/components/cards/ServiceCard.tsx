@@ -36,13 +36,13 @@ export function ServiceCard({
         <h3 className="text-xl md:text-2xl font-heading font-bold mb-3 group-hover:text-accent transition-colors duration-300">
           {title}
         </h3>
-        <p className="text-muted-foreground leading-relaxed">{description}</p>
+        <p className="text-foreground/70 leading-relaxed">{description}</p>
         {features && features.length > 0 && (
           <ul className="mt-6 space-y-2">
             {features.map((feature, index) => (
               <li
                 key={index}
-                className="flex items-center gap-2 text-sm text-muted-foreground group-hover:text-foreground/80 transition-colors duration-300"
+                className="flex items-center gap-2 text-sm text-foreground/60 group-hover:text-foreground/80 transition-colors duration-300"
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
                 {feature}

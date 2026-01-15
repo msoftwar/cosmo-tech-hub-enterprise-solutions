@@ -225,7 +225,7 @@ export function GlowOrb({
   size = "lg"
 }: { 
   className?: string;
-  color?: "accent" | "purple" | "blue" | "red";
+  color?: "accent" | "purple" | "blue" | "red" | "cyan";
   size?: "sm" | "md" | "lg" | "xl";
 }) {
   const sizeClasses = {
@@ -239,7 +239,8 @@ export function GlowOrb({
     accent: "bg-accent/30",
     purple: "bg-brand-purple/30",
     blue: "bg-brand-blue/30",
-    red: "bg-brand-red/30"
+    red: "bg-brand-red/30",
+    cyan: "bg-brand-cyan/30"
   };
   
   return (
