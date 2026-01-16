@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
 
 interface CaseStudyCardProps {
   title: string;
@@ -22,7 +21,7 @@ export function CaseStudyCard({
     <motion.div
       whileHover={{ y: -10 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      className="group relative bg-card rounded-2xl border border-border overflow-hidden cursor-pointer"
+      className="group relative bg-card rounded-2xl border border-border overflow-hidden"
     >
       {/* Image Container */}
       <div className="relative h-56 overflow-hidden">
@@ -37,10 +36,6 @@ export function CaseStudyCard({
           <span className="px-3 py-1 rounded-full text-xs font-semibold bg-accent/90 text-white backdrop-blur-sm">
             {category}
           </span>
-        </div>
-        {/* Arrow Icon */}
-        <div className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-          <ArrowUpRight className="h-5 w-5 text-white" />
         </div>
       </div>
       

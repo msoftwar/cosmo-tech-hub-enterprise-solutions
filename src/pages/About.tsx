@@ -2,11 +2,10 @@ import { Layout } from "@/components/layout/Layout";
 import { Section, SectionHeader } from "@/components/ui/Section";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { TeamMemberCard } from "@/components/cards/TeamMemberCard";
 import { FadeInUp, StaggerContainer, StaggerItem, GlowOrb, HoverScale } from "@/components/ui/motion";
 import { StarfieldBackground } from "@/components/ui/StarfieldBackground";
 import { motion } from "framer-motion";
-import { ArrowRight, Target, Eye, Lightbulb, Users, Award, Globe, Rocket, Shield, Heart } from "lucide-react";
+import { ArrowRight, Target, Eye, Lightbulb, Users, Award, Globe, Shield, Heart, CheckCircle, TrendingUp, Layers, Cpu } from "lucide-react";
 
 const values = [
   {
@@ -56,42 +55,18 @@ const milestones = [
   { year: "2024", event: "Serving clients worldwide", description: "200+ successful projects across 15+ industries" },
 ];
 
-const team = [
-  {
-    name: "Ahmed Hassan",
-    role: "CEO & Founder",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
-    bio: "15+ years in enterprise software. Previously led engineering teams at Microsoft and Oracle.",
-    linkedin: "#",
-    twitter: "#",
-    email: "ahmed@cosmotechhub.com",
-  },
-  {
-    name: "Sarah Mitchell",
-    role: "CTO",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop&crop=face",
-    bio: "AI/ML specialist with a PhD from Stanford. Former principal engineer at Google DeepMind.",
-    linkedin: "#",
-    twitter: "#",
-    email: "sarah@cosmotechhub.com",
-  },
-  {
-    name: "David Chen",
-    role: "Head of Engineering",
-    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop&crop=face",
-    bio: "Full-stack architect with 12+ years experience building scalable distributed systems.",
-    linkedin: "#",
-    email: "david@cosmotechhub.com",
-  },
-  {
-    name: "Fatima Al-Rahman",
-    role: "VP of Client Success",
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop&crop=face",
-    bio: "Expert in digital transformation strategy. Led projects for 50+ enterprise clients.",
-    linkedin: "#",
-    twitter: "#",
-    email: "fatima@cosmotechhub.com",
-  },
+const techStack = [
+  { name: ".NET & C#", description: "Enterprise-grade backend development" },
+  { name: "Angular & React", description: "Modern frontend frameworks" },
+  { name: "Python & AI/ML", description: "Intelligent automation solutions" },
+  { name: "Cloud & DevOps", description: "Scalable infrastructure" },
+];
+
+const capabilities = [
+  { icon: Cpu, title: "Enterprise Software", description: "Custom ERP, CRM, and business process automation systems" },
+  { icon: TrendingUp, title: "Data & Analytics", description: "Business intelligence and predictive analytics solutions" },
+  { icon: Layers, title: "System Integration", description: "Seamless integration of legacy and modern systems" },
+  { icon: CheckCircle, title: "Quality Assurance", description: "Comprehensive testing and security auditing" },
 ];
 
 export default function About() {
@@ -125,7 +100,7 @@ export default function About() {
                     <ArrowRight className="h-5 w-5" />
                   </Link>
                 </Button>
-                <Button variant="outline" size="xl" asChild className="border-white/20 text-surface-dark-foreground hover:bg-white/10">
+                <Button variant="gradient" size="xl" asChild className="bg-gradient-to-r from-brand-purple to-brand-cyan">
                   <Link to="/case-studies">View Our Work</Link>
                 </Button>
               </div>
@@ -135,10 +110,10 @@ export default function About() {
             <FadeInUp delay={0.2}>
               <div className="grid grid-cols-2 gap-6">
                 {[
-                  { value: "10+", label: "Years of Experience" },
-                  { value: "200+", label: "Projects Delivered" },
-                  { value: "50+", label: "Team Members" },
-                  { value: "15+", label: "Industries Served" },
+                  { value: "10+", label: "Years of Excellence" },
+                  { value: "200+", label: "Solutions Delivered" },
+                  { value: "50+", label: "Expert Engineers" },
+                  { value: "15+", label: "Countries Served" },
                 ].map((stat, index) => (
                   <HoverScale key={index}>
                     <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm text-center">
@@ -224,21 +199,51 @@ export default function About() {
         </StaggerContainer>
       </Section>
 
-      {/* Team Section */}
+      {/* What We Do Best - Replaces Team Section */}
       <Section>
         <SectionHeader
-          eyebrow="Our Team"
-          title="Meet the Leaders"
-          description="The experienced professionals driving our mission forward."
+          eyebrow="Our Expertise"
+          title="What We Do Best"
+          description="Comprehensive technology solutions tailored to your business needs."
         />
 
         <StaggerContainer className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {team.map((member, index) => (
+          {capabilities.map((capability, index) => (
             <StaggerItem key={index}>
-              <TeamMemberCard {...member} />
+              <HoverScale>
+                <div className="relative p-6 rounded-2xl border border-border bg-card h-full group">
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="relative">
+                    <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                      <capability.icon className="h-6 w-6 text-accent" />
+                    </div>
+                    <h3 className="font-heading font-bold text-foreground">
+                      {capability.title}
+                    </h3>
+                    <p className="mt-2 text-sm text-muted-foreground">
+                      {capability.description}
+                    </p>
+                  </div>
+                </div>
+              </HoverScale>
             </StaggerItem>
           ))}
         </StaggerContainer>
+
+        {/* Technology Stack */}
+        <FadeInUp delay={0.2}>
+          <div className="mt-16 p-8 rounded-3xl bg-muted/50 border border-border">
+            <h3 className="text-xl font-heading font-bold text-foreground text-center mb-8">Our Technology Stack</h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              {techStack.map((tech, index) => (
+                <div key={index} className="text-center">
+                  <div className="font-heading font-semibold text-foreground">{tech.name}</div>
+                  <p className="text-xs text-muted-foreground mt-1">{tech.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </FadeInUp>
       </Section>
 
       {/* Timeline */}
@@ -290,42 +295,46 @@ export default function About() {
 
       {/* Global Reach */}
       <Section>
-        <div className="relative rounded-3xl bg-gradient-to-r from-accent/10 via-brand-purple/10 to-brand-cyan/10 border border-accent/20 p-12 md:p-16 text-center overflow-hidden">
+        <div className="relative rounded-3xl bg-gradient-to-r from-accent/10 via-brand-purple/10 to-brand-cyan/10 border border-accent/20 p-12 md:p-16 overflow-hidden">
           <div className="absolute inset-0 grid-pattern opacity-30" />
           <GlowOrb color="accent" size="lg" className="-top-20 -left-20 opacity-30" />
           <GlowOrb color="purple" size="md" className="-bottom-10 -right-10 opacity-30" />
           
           <div className="relative z-10">
-            <div className="w-20 h-20 mx-auto rounded-2xl gradient-brand flex items-center justify-center mb-8 shadow-lg shadow-accent/25">
-              <Globe className="h-10 w-10 text-white" />
-            </div>
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground">
-              Global Reach, Local Expertise
-            </h2>
-            <p className="mt-6 text-xl text-muted-foreground max-w-2xl mx-auto">
-              Headquartered in Dubai with offices in the UK and Pakistan, we bring diverse 
-              perspectives and round-the-clock capabilities to every project.
-            </p>
-            
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-8">
-              {["Dubai, UAE", "London, UK", "Lahore, Pakistan"].map((location, index) => (
-                <div key={index} className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full gradient-brand" />
-                  <span className="font-medium text-foreground">{location}</span>
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+              <div className="lg:max-w-2xl">
+                <div className="w-16 h-16 rounded-2xl gradient-brand flex items-center justify-center mb-6 shadow-lg shadow-accent/25">
+                  <Globe className="h-8 w-8 text-white" />
                 </div>
-              ))}
-            </div>
-            
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-              <Button variant="gradient" size="xl" asChild>
-                <Link to="/contact">
-                  Work With Us
-                  <ArrowRight className="h-5 w-5" />
-                </Link>
-              </Button>
-              <Button variant="outline" size="xl" asChild>
-                <Link to="/careers">Join Our Team</Link>
-              </Button>
+                <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground">
+                  Global Reach, Local Expertise
+                </h2>
+                <p className="mt-4 text-lg text-muted-foreground">
+                  Headquartered in Dubai with offices in the UK and Pakistan, we bring diverse 
+                  perspectives and round-the-clock capabilities to every project.
+                </p>
+                
+                <div className="mt-6 flex flex-wrap items-center gap-6">
+                  {["Dubai, UAE", "Peterborough, UK", "Islamabad, Pakistan"].map((location, index) => (
+                    <div key={index} className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full gradient-brand" />
+                      <span className="font-medium text-foreground">{location}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="flex flex-col gap-4">
+                <Button variant="gradient" size="xl" asChild>
+                  <Link to="/contact">
+                    Work With Us
+                    <ArrowRight className="h-5 w-5" />
+                  </Link>
+                </Button>
+                <Button variant="outline" size="xl" asChild>
+                  <Link to="/careers">Join Our Team</Link>
+                </Button>
+              </div>
             </div>
           </div>
         </div>

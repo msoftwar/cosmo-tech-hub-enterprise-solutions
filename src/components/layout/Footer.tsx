@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Linkedin, ArrowRight, Globe, Smartphone, Bot, Code2, BarChart3, Database, Clock, Shield, Zap, Twitter, Facebook, Instagram, Youtube } from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin, ArrowRight, Globe, Smartphone, Bot, Code2, BarChart3, Database, Clock, Shield, Zap, Twitter, Facebook, Instagram } from "lucide-react";
 import logoWhite from "@/assets/logo-white.png";
 import { Button } from "@/components/ui/button";
 
@@ -7,7 +7,7 @@ const footerLinks = {
   company: [
     { name: "About Us", href: "/about" },
     { name: "Our Team", href: "/about" },
-    { name: "Careers", href: "#" },
+    { name: "Careers", href: "/careers" },
     { name: "Contact", href: "/contact" },
     { name: "Blog", href: "#" },
   ],
@@ -27,7 +27,7 @@ const footerLinks = {
     { name: "AI & Machine Learning", href: "/technologies" },
   ],
   resources: [
-    { name: "Case Studies", href: "#" },
+    { name: "Case Studies", href: "/case-studies" },
     { name: "Documentation", href: "#" },
     { name: "FAQs", href: "#" },
     { name: "Support", href: "/contact" },
@@ -42,12 +42,12 @@ const offices = [
   },
   {
     name: "UK Office",
-    address: "19 Farrow Avenue, Hampton Vale, PE7 8HT, England, UK",
+    address: "19 Farrow Avenue, Hampton Vale, Peterborough, PE7 8HT, England, UK",
     phone: "+44 7519 302088",
   },
   {
     name: "Pakistan Office",
-    address: "Abbasi Business Center, Rawalpindi",
+    address: "Islamabad, Pakistan",
     phone: "+92 313 770 7190",
   },
 ];
@@ -140,27 +140,24 @@ export function Footer() {
               >
                 <Linkedin className="h-4 w-4" />
               </a>
-              <a
-                href="#"
-                className="p-2.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 hover:border-accent/50 transition-all duration-300"
+              <span
+                className="p-2.5 rounded-lg bg-white/5 border border-white/10 opacity-50 cursor-default"
                 aria-label="Twitter"
               >
                 <Twitter className="h-4 w-4" />
-              </a>
-              <a
-                href="#"
-                className="p-2.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 hover:border-accent/50 transition-all duration-300"
+              </span>
+              <span
+                className="p-2.5 rounded-lg bg-white/5 border border-white/10 opacity-50 cursor-default"
                 aria-label="Facebook"
               >
                 <Facebook className="h-4 w-4" />
-              </a>
-              <a
-                href="#"
-                className="p-2.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 hover:border-accent/50 transition-all duration-300"
+              </span>
+              <span
+                className="p-2.5 rounded-lg bg-white/5 border border-white/10 opacity-50 cursor-default"
                 aria-label="Instagram"
               >
                 <Instagram className="h-4 w-4" />
-              </a>
+              </span>
             </div>
           </div>
 
@@ -311,12 +308,6 @@ export function Footer() {
             </Link>
             <Link to="/terms-of-service" className="hover:text-accent transition-colors">
               Terms of Service
-            </Link>
-            <Link to="#" className="hover:text-accent transition-colors">
-              Cookie Policy
-            </Link>
-            <Link to="#" className="hover:text-accent transition-colors">
-              Sitemap
             </Link>
           </div>
         </div>
