@@ -12,8 +12,11 @@ import {
   Zap, 
   Coffee,
   ArrowRight,
-  Mail
+  Mail,
+  Bell,
+  Send
 } from "lucide-react";
+import { useState } from "react";
 
 const perks = [
   { icon: Globe2, label: "Remote-First Culture" },
@@ -23,6 +26,16 @@ const perks = [
 ];
 
 export default function Careers() {
+  const [email, setEmail] = useState("");
+  const [isSubscribed, setIsSubscribed] = useState(false);
+
+  const handleNotify = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email) {
+      setIsSubscribed(true);
+    }
+  };
+
   return (
     <Layout>
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden section-dark">
@@ -125,16 +138,71 @@ export default function Careers() {
                     <Button variant="gradient" size="xl" asChild>
                       <Link to="/contact">
                         <Mail className="h-5 w-5 mr-2" />
-                        Get Notified
+                        Contact Us
                       </Link>
                     </Button>
-                    <Button variant="outline" size="xl" asChild className="border-white/20 text-surface-dark-foreground hover:bg-white/10">
+                    <Button size="xl" asChild className="bg-gradient-to-r from-brand-cyan to-brand-purple text-white border-0 hover:opacity-90">
                       <Link to="/about">
                         Learn About Us
                         <ArrowRight className="h-5 w-5 ml-2" />
                       </Link>
                     </Button>
                   </div>
+                </div>
+              </div>
+            </FadeInUp>
+
+            {/* Get Notified Section */}
+            <FadeInUp delay={0.55}>
+              <div className="mt-12 relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-brand-cyan/20 via-accent/20 to-brand-purple/20 blur-2xl opacity-40 rounded-3xl" />
+                <div className="relative bg-white/5 backdrop-blur-xl rounded-2xl border border-white/20 p-6 md:p-8 max-w-xl mx-auto">
+                  <div className="flex items-center justify-center gap-3 mb-4">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-brand-cyan to-accent flex items-center justify-center">
+                      <Bell className="h-6 w-6 text-white" />
+                    </div>
+                    <h3 className="text-xl font-heading font-bold text-surface-dark-foreground">
+                      Get Notified First
+                    </h3>
+                  </div>
+                  
+                  {!isSubscribed ? (
+                    <form onSubmit={handleNotify} className="mt-4">
+                      <div className="flex flex-col sm:flex-row gap-3">
+                        <div className="flex-1 relative">
+                          <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="Enter your email address"
+                            className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-surface-dark-foreground placeholder:text-white/40 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all"
+                            required
+                          />
+                        </div>
+                        <Button type="submit" variant="gradient" size="lg" className="shrink-0">
+                          <Send className="h-4 w-4 mr-2" />
+                          Notify Me
+                        </Button>
+                      </div>
+                      <p className="mt-3 text-xs text-surface-dark-foreground/50">
+                        Be the first to know when new positions open. No spam, just opportunities.
+                      </p>
+                    </form>
+                  ) : (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="text-center py-4"
+                    >
+                      <div className="w-16 h-16 mx-auto rounded-full bg-green-500/20 flex items-center justify-center mb-4">
+                        <Sparkles className="h-8 w-8 text-green-400" />
+                      </div>
+                      <h4 className="text-lg font-semibold text-surface-dark-foreground">You're on the list!</h4>
+                      <p className="text-sm text-surface-dark-foreground/60 mt-2">
+                        We'll notify you when exciting opportunities become available.
+                      </p>
+                    </motion.div>
+                  )}
                 </div>
               </div>
             </FadeInUp>
